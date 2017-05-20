@@ -30,9 +30,12 @@ for($i = 0; $i < 40; $i ++ ) {
     $s_code = '131200' . $i;
     $array = convert($s_code);
     $image = paint($array);
-    imagepng($image, DIR_NAME . DIRECTORY_SEPARATOR . "${s_code}.png");
+    if ( ! (imagepng($image, DIR_NAME . DIRECTORY_SEPARATOR . "${s_code}.png"))) {
+        echo "画像保存　失敗 at " . $s_code . "\n";
+    }
     imagedestroy($image);
 }
+
 //ここまで使用例
 
 function paint (array $array){
@@ -88,6 +91,7 @@ function convert ($s_code) : array
         }
     }
     $sum = 0;
+    //語尾から七文字を色相決定に利用する
     for($i = 0; $i < 7; $i++) {
         $sum += ord($hashed[strlen($hashed) - 1 - $i]);
     }
