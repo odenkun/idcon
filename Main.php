@@ -1,18 +1,20 @@
 <?php
 
-//画像の一辺の長さ
+//生成画像の一辺の長さ
 const IM_SIZE = 385;
-//点の数
+//一方向辺りの点の数
 const RECT_NUM = 5;
-//点の大きさ
+//各点の大きさ
 const PIXEL_SIZE = IM_SIZE / RECT_NUM;
-//一辺あたりの空白
+//生成画像の一辺あたりの空白
 const SPACE = 35;
-//生成先ディレクトリ
+//生成先ディレクトリ名
 const DIR_NAME = 'identicons';
-//塗る色
+//背景色
 const BG_COLOR = [245,245,245];
+//塗る色の彩度
 const SAT = 121;
+//塗る色の明度
 const VAL = 200;
 
 //ここから使用例
@@ -28,7 +30,7 @@ for($i = 0; $i < 40; $i ++ ) {
     $s_code = '131200' . $i;
     $array = convert($s_code);
     $image = paint($array);
-    imagepng($image, DIR_NAME . "\\${s_code}.png");
+    imagepng($image, DIR_NAME . DIRECTORY_SEPARATOR . "${s_code}.png");
     imagedestroy($image);
 }
 //ここまで使用例
