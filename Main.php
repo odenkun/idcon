@@ -42,12 +42,12 @@ function paint (array $array){
     //真っ黒の画像を生成
     $image = imagecreatetruecolor(IM_SIZE + 2 * SPACE,IM_SIZE + 2 * SPACE) or die('Cannot start generation an icon');
     //灰色に塗りつぶす
-    $white = imagecolorallocate($image, BG_COLOR[0],BG_COLOR[1],BG_COLOR[2]);
-    imagefill($image, 0, 0, $white);
+    $gray = imagecolorallocate($image, BG_COLOR[0],BG_COLOR[1],BG_COLOR[2]);
+    imagefill($image, 0, 0, $gray);
     $hsv = new Hsv($array['hue'], SAT/256, VAL/256);
     $rgb = hsv2rgb($hsv);
 
-    $red = imagecolorallocate(
+    $color = imagecolorallocate(
         $image,
         $rgb->getRed(),
         $rgb->getGreen(),
@@ -64,7 +64,7 @@ function paint (array $array){
             $point[1] * PIXEL_SIZE + SPACE,
             ($point[0] + 1) * PIXEL_SIZE + SPACE,
             ($point[1] + 1) * PIXEL_SIZE + SPACE,
-            $red);
+            $color);
     }
     return $image;
 }
