@@ -26,7 +26,7 @@ if( !(file_exists(DIR_NAME))){
         echo "ディレクトリ作成　失敗 \n";
     }
 }
-for($i = 0; $i < 40; $i ++ ) {
+for($i = 0; $i < 100; $i ++ ) {
     $s_code = '131200' . $i;
     $array = convert($s_code);
     $image = paint($array);
@@ -56,7 +56,7 @@ function paint (array $array){
 
     //与えられた座標に四角形を描画
     foreach ($array as $point) {
-        if (gettype($point) == 'string') {
+        if (gettype($point) == 'integer') {
             continue;
         }
         imagefilledrectangle($image,
@@ -88,8 +88,11 @@ function convert ($s_code) : array
                 //左右反転して追加
                 array_push($ar, [ ( RECT_NUM - 1 ) - $pt_x, $pt_y ]);
             }
+            //var_dump($ar);
+            //echo $i . "\n";
         }
     }
+
     $sum = 0;
     //語尾から七文字を色相決定に利用する
     for($i = 0; $i < 7; $i++) {
