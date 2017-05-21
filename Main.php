@@ -35,7 +35,7 @@ for($i = 0; $i < 100; $i ++ ) {
     }
     imagedestroy($image);
 }
-
+echo 'finished on ' . time() . "\n";
 //ここまで使用例
 
 function paint (array $array){
@@ -44,7 +44,9 @@ function paint (array $array){
     //灰色に塗りつぶす
     $gray = imagecolorallocate($image, BG_COLOR[0],BG_COLOR[1],BG_COLOR[2]);
     imagefill($image, 0, 0, $gray);
+    //0 <= S,V <= 1に変換
     $hsv = new Hsv($array['hue'], SAT/256, VAL/256);
+    //色空間をHSVからRGBに変換
     $rgb = hsv2rgb($hsv);
 
     $color = imagecolorallocate(
@@ -56,7 +58,7 @@ function paint (array $array){
 
     //与えられた座標に四角形を描画
     foreach ($array as $point) {
-        if (gettype($point) == 'integer') {
+        if (gettype($point) != 'array') {
             continue;
         }
         imagefilledrectangle($image,
@@ -88,8 +90,6 @@ function convert ($s_code) : array
                 //左右反転して追加
                 array_push($ar, [ ( RECT_NUM - 1 ) - $pt_x, $pt_y ]);
             }
-            //var_dump($ar);
-            //echo $i . "\n";
         }
     }
 
@@ -99,7 +99,7 @@ function convert ($s_code) : array
         $sum += ord($hashed[strlen($hashed) - 1 - $i]);
     }
     $ar['hue'] = $sum % 256;
-    print $ar['hue'] . "\n";
+    
     return $ar;
 }
 class Rgb {
